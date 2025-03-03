@@ -20,3 +20,5 @@ df.fillna(df.mean(), inplace=True)
 # Encode categorical labels for attack detection
 label_encoder = LabelEncoder()
 df['attack'] = label_encoder.fit_transform(df['attack']) 
+
+#
