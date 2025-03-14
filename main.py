@@ -37,3 +37,8 @@ for col in df.select_dtypes(include=['number']).columns:
 for col in df.select_dtypes(include=['object']).columns:
     df[col] = df[col].fillna(df[col].mode()[0])
 
+# Encode categorical columns
+categorical_cols = ['flgs', 'proto', 'state', 'category', 'subcategory']
+encoder = LabelEncoder()
+for col in categorical_cols:
+    df[col] = encoder.fit_transform(df[col])
