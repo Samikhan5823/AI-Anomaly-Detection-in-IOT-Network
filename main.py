@@ -25,6 +25,7 @@ print("Available Columns in Dataset:\n", df.columns)
 # Check for missing values
 print("Missing Values:\n", df.isnull().sum())
 
+<<<<<<< HEAD
 # Convert non-numeric columns in 'sport' and 'dport' to numeric (errors='coerce' turns invalid values to NaN)
 df['sport'] = pd.to_numeric(df['sport'], errors='coerce')
 df['dport'] = pd.to_numeric(df['dport'], errors='coerce')
@@ -86,4 +87,17 @@ svm_model = SVC(kernel='linear', random_state=42)
 mlp_model = MLPClassifier(hidden_layer_sizes=(100,), max_iter=300, random_state=42)
 
 //
+=======
+# Drop unnecessary columns
+drop_cols = ['pkSeqID', 'stime', 'saddr', 'daddr', 'smac', 'dmac', 'soui', 'doui', 'sco', 'dco']
+df.drop(columns=drop_cols, inplace=True, errors='ignore')
+
+# Fill missing values in numeric columns with median
+for col in df.select_dtypes(include=['number']).columns:
+    df[col] = df[col].fillna(df[col].median())
+
+# Fill missing values in categorical columns with mode
+for col in df.select_dtypes(include=['object']).columns:
+    df[col] = df[col].fillna(df[col].mode()[0])
+>>>>>>> c6c7e335b07138bb8a2acf8d33efe048b8093ace
 
