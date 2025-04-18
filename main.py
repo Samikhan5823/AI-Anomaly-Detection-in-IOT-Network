@@ -92,11 +92,20 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
-# PCA Visualization
+# Correlation Heatmap
+corr = X_train_res.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.show()
+
+# Optimized PCA Visualization
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_train_res)
+
 plt.figure(figsize=(8, 6))
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_train_res, cmap='viridis', alpha=0.5)
+sns.scatterplot(x=X_pca[:, 0], y=X_pca[:, 1], hue=y_train_res, palette='viridis', alpha=0.7)
 plt.title("PCA of Network Traffic Features")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
@@ -171,3 +180,5 @@ import joblib
 joblib.dump(rf_model, 'random_forest_model.pkl')
 joblib.dump(svm_model, 'svm_model.pkl')
 joblib.dump(mlp_model, 'mlp_model.pkl')
+
+# end
